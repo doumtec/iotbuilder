@@ -24,7 +24,7 @@ ESP8266WebServer server(80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
 int type=2; // 기기 인식번호 -> display에 사용
-#define URL_fw_Bin "http://i2r.link/download/"
+#define URL_fw_Bin "http://api.goodmen.co.kr/download/"
 
 char ssid[40] = "";
 char password[50] = "";
@@ -37,9 +37,9 @@ unsigned int countMqtt=0;
 unsigned int countMeasure=0;
 
 const char *clientName = "";          // 사물 이름 (thing ID) 자동생성
-const char *host = "*.iot.us-west-2.amazonaws.com"; // AWS IoT Core 주소
-const char* outTopic = "/i2r/outTopic"; 
-const char* inTopic = "/i2r/inTopic"; 
+const char *host = "a36t80q20tgpy2-ats.iot.ap-northeast-2.amazonaws.com"; // AWS IoT Core 주소
+const char* outTopic = "/goodmen/outTopic"; 
+const char* inTopic = "/goodmen/inTopic"; 
 
 char msg[100];
 int mqttConnected=0; // 1=연결 0=끊김
@@ -51,7 +51,7 @@ int act=0;
 int bootMode=0; //0:station  1:AP
 int saveValue=0;
 String inputString = "";         // 받은 문자열
-int timeMqtt=5;
+int timeMqtt=60;  // 60초에 한번 서버에 데이터를 전송한다.
 float ec=0.,ph=0.,temp=0.,humi=0.;
 
 unsigned long previousMillis = 0;     
@@ -255,7 +255,7 @@ void bootWifiAp() {
   WiFi.mode(WIFI_AP);
   WiFi.softAPConfig(apIP, apIP, netMsk);
   char i2rMac[30];
-  sMac="i2r-"+sMac;
+  sMac="GMen-"+sMac;
   sMac.toCharArray(i2rMac, sMac.length());
   WiFi.softAP(i2rMac, "");
     ipAct=WiFi.softAPIP().toString();
@@ -325,7 +325,7 @@ void download_program(String fileName) {
 
     String ss;
     //ss=(String)URL_fw_Bin+fileName;
-    ss="http://i2r.link/download/"+fileName;
+    ss="http://api.goodmen.co.kr/download/"+fileName;
     Serial.println(ss);
     t_httpUpdate_return ret = ESPhttpUpdate.update(client, ss);
     //t_httpUpdate_return ret = ESPhttpUpdate.update(client, URL_fw_Bin);

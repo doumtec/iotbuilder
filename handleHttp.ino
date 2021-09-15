@@ -5,149 +5,55 @@ String webHtml="";
 
 //***********************************************************************
 char Head[] PROGMEM = R"=====(
-<html>
-  <head>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-    <meta http-equiv='Content-Type' content='text/html;charset=utf-8' />
-    <style>
-      table, th, td {
-        padding: 4px;
-      }
-      body {
-        background: #eab0dc;
-        font-family: "Lato", sans-serif;
-      }
-      .button {
-        border: none;
-          border-color:black;
-          color: white;
-          padding: 20px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          margin: 4px 2px;
-          cursor: pointer;
-        }
-        .buttonMenu {
-          padding: 5px 24px;
-          margin-left:20%;
-          background-color:black;
-          border: none;
-          border-color:black;
-          color:white;
-          text-align: left;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          margin: 4px 2px;
-          cursor: pointer;
-        }
-        .sidenav {
-          height: 100%;
-          width: 0;
-          position: fixed;
-          z-index: 1;
-          top: 0;
-          left: 0;
-          background-color: #111;
-          overflow-x: hidden;
-          transition: 0.5s;
-          padding-top: 60px;
-        }
-        .sidenav a {
-          padding: 8px 8px 8px 32px;
-          text-decoration: none;
-          font-size: 18px;
-          color: #818181;
-          display: block;
-                transition: 0.3s;
-        }
-        .sidenav a:hover {
-          color: #f1f1f1;
-        }
-        .sidenav .closebtn {
-          position: absolute;
-          top: 0;
-          right: 25px;
-          font-size: 36px;
-          margin-left: 50px;
-        }
-        .button-box {background-color:#ff8000;color: white;border: none;padding: 6px 15px;}
-        .button-on {border-radius: 100%; background-color: #4CAF50;}
-        .button-off {border-radius: 100%;background-color: #707070;}
-        .button-ledon {border-radius: 100%; padding: 10px; font-size: 8px; margin: 0px 0px; background-color: #ff4500;}
-        .button-ledoff {border-radius: 100%; padding: 10px; font-size: 8px; background-color: #707070;}
-  </style>
+<!DOCTYPE html>
+<html class='loading' lang='kr' data-textdirection='ltr'>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+<title>GOODMEN</title>
+<link rel='apple-touch-icon' href='http://goodmen.co.kr/assets/icon/apple-icon-120.png'>
+<link href='http://goodmen.co.kr/assets/icon/favicon.png' rel='icon'>
+<link rel='stylesheet' type='text/css' href='http://goodmen.co.kr/firmware/firmware_all.css'>    
+</head>
 )=====";
 
 char ScriptRoot[] PROGMEM = R"=====(
-  <script>
-    var Socket;
-    function init() {
-      Socket = new WebSocket('ws://' + window.location.hostname + ':81/');
-      Socket.onmessage = function(event){
-        var data = JSON.parse(event.data);
-        //console.log(data.temp);
-        document.getElementById("temp").innerHTML = data.temp;
-        document.getElementById("humi").innerHTML = data.humi;
-       // document.getElementById("temperature").innerHTML = data.temp;
-      }
-    }
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "150px"; 
-    }
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-    }
-  </script> 
+<script src='http://goodmen.co.kr/firmware/ScriptRoot.js'></script>
 </head>
-<body onload="javascript:init()">
+<body onload="javascript:init()" class='horizontal-layout horizontal-menu navbar-floating footer-static bg-bgray-tint' data-open='hover' data-menu='horizontal-menu' data-col=''>
 )=====";
 
 
 char ScriptHead[] PROGMEM = R"=====(
-  <script>
-    var Socket;
-    function init() {
-      Socket = new WebSocket('ws://' + window.location.hostname + ':81/');
-      Socket.onmessage = function(event){
-      }
-    }
-    function sendOption(){
-      document.getElementById("ssidSelected").value = document.getElementById("ssid").value;
-      //Socket.send("$"+document.getElementById("ssid").value);
-    }
-    function sendAct(valueIn){
-      Socket.send(valueIn);
-    }
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "150px"; 
-    }
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-    }
-  </script>
+<script src='http://goodmen.co.kr/firmware/ScriptHead.js'></script>
 </head>
-<body onload="javascript:init()">
+<body onload="javascript:init()" class='horizontal-layout horizontal-menu navbar-floating footer-static bg-bgray-tint' data-open='hover' data-menu='horizontal-menu' data-col=''>
 )=====";
 
 char Body[] PROGMEM = R"=====(
-  <br><br>다운로드 파일명 down-local-monit-02.bin
-  <br><br>
-  <table>
-    <tr>
-      <th><label>온도 : </label></th>
-      <th><span id="temp">%temp%</span><sup class="units">&deg;C</sup></th>
-    </tr>
-
-    <tr>
-      <th><label>습도 : </label></th>
-      <th><span id="humi">%humi%</span><sup class="units">%</sup></th>
-    </tr>
-
-  </table>
-  
+<div class='content app-firmware-content'>
+<div class='content-overlay'></div>
+<div class='content-wrapper'>
+<div class='content-header row'>
+</div>
+<div class='content-body'>
+<div class='card'>
+<div class='card-header text-center'>
+<h4 class='card-title w-100 text-center'>로컬 서버</h4>
+</div>
+<div class='card-body mh-50vh'>
+<div class='now-data d-flex-box'>
+<h5 class='font-medium-1'>온도</h5>
+<div class='font-large-1 text-tertiary'><span id='temp'>0</span><span class='font-small-2'>℃</span></div>
+</div>
+<div class='now-data d-flex-box'>
+<h5 class='font-medium-1'>습도</h5>
+<div class='font-large-1 text-info'><span id='humi'>0</span><span class='font-small-2'>%</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 )=====";
 
 char BodyControl[] PROGMEM = R"=====(
@@ -156,38 +62,57 @@ char BodyControl[] PROGMEM = R"=====(
 )=====";
 
 char Menu[] PROGMEM = R"=====(
-  <div id='mySidenav' class='sidenav'>
-  <a href='javascript:void(0)' class='closebtn' onclick='closeNav()'>&times;</a>
-  <a href='/'>홈</a>
-  <a href='/control'>콘트롤</a>
-  <a href='/download'>다운로드</a>
-  <a href='/wifi'>와이파이설정</a>
-  <a href='/config'>환경설정</a>
-  <a href='/manual'>메뉴얼</a>
-  <a href='http://i2r.link' target='_blank'>김동일홈피</a>
-  </div>
-  <span style='font-size:30px;cursor:pointer' onclick='openNav()'>&#9776; </span>
-  메뉴열기
+<script src='http://goodmen.co.kr/firmware/firmware_head.js'></script>
 )=====";
 
 char Download[] PROGMEM = R"=====(
-  <br><br>다운로드<br>
-  새로운 기기를 다운로드 받으려면 [최신펌웨어 업그레이드]를 하면 기기 리스트가 보입니다.<br> 
-  기기선택 후 업그레이드 하세요.<br>
-  <div> <button id="onButton" class='button button-box' onclick="sendAct('#'+'{\'act\':1}');">기기선택 펌웨어 다운로드</button> </div>  
-  <hr>
-
+<div class='content app-firmware-content'>
+<div class='content-overlay'></div>
+<div class='content-wrapper'>
+<div class='content-header row'>
+</div>
+<div class='content-body'>
+<div class='card'>
+<div class='card-header text-center'>
+<h4 class='card-title w-100 text-center'>다운로드</h4>
+</div>
+<div class='card-body mh-50vh'>
+<div>
+다운로드 추가된 기기를 다운받으려면 펌웨어 업그레이드를 하세요.
+<div class='mt-50'><button class='btn btn-outline-primary' onclick="sendAct('#'+'{\'act\':1}');">최신 펌웨어 업그레이드</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 )=====";
 
 char Manual[] PROGMEM = R"=====(
-  <br><br>메뉴얼
-  <a href='https://github.com/kdi6033/IoT/tree/main/11-2-1%20sensecube%20PE-300%20arduino'>PE-300 선연결</a>
-  
+<div class='content app-firmware-content'>
+<div class='content-overlay'></div>
+<div class='content-wrapper'>
+<div class='content-header row'>
+</div>
+<div class='content-body'>
+<div class='card'>
+<div class='card-header text-center'>
+<h4 class='card-title w-100 text-center'>메뉴얼</h4>
+</div>
+<div class='card-body mh-50vh'>
+<ul class='pl-1'>
+<li>1. 메뉴얼 내용 입력</li>
+<li>1. 메뉴얼 내용 입력</li>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 )=====";
 
 char Tail[] PROGMEM = R"=====(
-</body>
-</html>
+</body></html>
 )=====";
 
 void handleRoot() {
@@ -271,40 +196,46 @@ String sensWifi(int in) {
 void handleWifi() {
   String s=""; 
   String s1= String(ssid);
-  s="<h1>Wifi 선택</h1>";
   Serial.println("scan start");
   int n = WiFi.scanNetworks();
   Serial.println("scan done");
   delay(100);
 
+  s="<div class='content app-firmware-content'>";
+  s+="<div class='content-overlay'></div>";
+  s+="<div class='content-wrapper'>";
+  s+="<div class='content-header row'></div>";
+  s+="<div class='content-body'>";
+  s+="<div class='card'>";
+  s+="<div class='card-header text-center'><h4 class='card-title w-100 text-center'>WiFi</h4></div>";
+  s+="<div class='card-body mh-50vh'>";
+  s+="<div class='form-group'>";
+  s+="<label for='wifi' class='form-label'>현재 연결된 WiFi</label>";
+  Serial.println("헤더-001");
+
   if (n > 0) {
     //s+="검색된 와이파이";
-    s+="<select id='ssid' name='ssid' onclick=\"sendOption();\">";
+    s+="<select id='ssid' name='ssid' onclick=\"sendOption();\" class='form-control form-control-lg' >";
     for (int i = 0; i < n; i++) {
       s+="<option value='"+WiFi.SSID(i)+"'>";
       s+=WiFi.SSID(i) + String((WiFi.encryptionType(i) == ENC_TYPE_NONE)?" ":"&emsp;&#128274")+"&emsp; &#"+ sensWifi(WiFi.RSSI(i));
       s+="</option>";
+     Serial.print("와이파이-");
+     Serial.println(i);
     }
     s+="</select>";
   } 
   else 
-    s=s+"<br>No WLAN found";
+    s+="<br>No WLAN found";
 
-  s=s+"<p><a href='/wifi'>와이파이가 없으면 다시 검색하세요.</a></p>";
+  s+="<div class='mb-2'><a href='/wifi'><button class='btn btn-outline-primary w-100'><i data-feather='refresh-ccw'></i> WiFi 다시 검색</button></a></div>";
   s+="<form method='POST' action='/wifisave'>";
-  s+="<table>";
-    s+="<tr>";
-      s+="<th>와이파이 이름</th>";
-      s+="<th><input type='text' id='ssidSelected' value='"+(String)ssid+"' name='n'/></th>";
-    s+="</tr>";
-    s+="<tr>";
-      s+="<th>비밀번호</th>";
-      s+="<th><input type='password' value='"+(String)password+"' name='p'/></th>";
-    s+="</tr>";
-    s+="<tr>";
-      s+="<th></th>";
-      s+="<th><input type='submit' value='    저  장    ' style='background-color:#ff8000;color: white;border: none;padding: 6px 15px;'/></form></th>";
-    s+="</tr>";
+  s+="<div class='form-group border-top-mute pt-1'><label for='name' class='form-label'>WiFi 이름 </label><input type='text' class='form-control form-control-lg' id='ssidSelected' value='"+(String)ssid+"' name='n'/></div>";
+  s+="<div class='form-group'><label for='password' class='form-label'>비밀번호 </label><input type='password' class='form-control form-control-lg'  value='"+(String)password+"' name='p' /></div>";
+  s+="<div><button type='submit' class='btn btn-primary w-100'>저장</button></div>";
+  s+="</form>";
+
+  s+="</div></div></div></div></div>";
   String sOut;
   sOut=FPSTR(Head);
   sOut+=FPSTR(ScriptHead);
@@ -344,24 +275,26 @@ void handleScan() {
 
 void handleConfig() {
   String s;
-  s="<br><br>아마존크라우드서버에서 회원가입을 하세요.<br>";
-  s+="<br> 무료로 모니터링 제어를 할 수 있습니다.<br>";
-  
+  s ="<div class='content app-firmware-content'>";
+  s+="<div class='content-overlay'></div>";
+  s+="<div class='content-wrapper'>";
+  s+="<div class='content-header row'></div>";
+  s+="<div class='content-body'>";
+  s+="<div class='card'>";
+  s+="<div class='card-header text-center'><h4 class='card-title w-100 text-center'>환경설정</h4></div>";
+  s+="<div class='card-body mh-50vh'>";
+  s+="<div>Email을 등록하시고 goodmen.co.kr 에서 회원가입을 하셔야 이용이 가능합니다.</div>";
   s+="<form action='/on'>";
   s+="<input type='hidden' name='act' value='2'>";
-  s+="<table>";
-    s+="<tr>";
-      s+="<th>email</th>";
-      s+="<th><input type='text' value='"+(String)email+"' name='email'/></th>";
-    s+="</tr>";
-    s+="<tr>";
-      s+="<th></th>";
-      s+="<th><input type='submit' value='    저  장    ' style='background-color:#ff8000;color: white;border: none;padding: 6px 15px;'/></th>";
-    s+="</tr>";
-
-  s+="</table>";
+  s+="<div class='form-group pt-1 mt-2 border-top-mute'><label for='mqtt' class='form-label'>E-Mail </label><input type='text' class='form-control form-control-lg' name='email' id='email' value='"+(String)email+"' /></div>";
+  s+="<div><button class='btn btn-primary w-100' type='submit'>저장</button></div>";
   s+="</form>";
-
+  s+="</div>";
+  s+="</div>";
+  s+="</div>";
+  s+="</div>";
+  s+="</div>";
+  
   String sOut;
   sOut=FPSTR(Head);
   sOut+=FPSTR(ScriptHead);
